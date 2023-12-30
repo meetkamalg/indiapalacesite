@@ -6,6 +6,7 @@ type MenuItem = {
   name: string;
   price: number;
   description: string;
+  image: string; 
 };
 
 type MenuCategory = {
@@ -33,19 +34,16 @@ export default function Menu({ menuData }: MenuProps) {
 
         {menuData.map((category, index) => (
           <div key={category.category}>
-            {/* Clickable category title */}
             <h3 className="cursor-pointer mt-4 mb-2 text-lg font-bold text-gray-900" onClick={() => toggleCategory(index)}>
               {category.category}
             </h3>
-
-            {/* Conditional rendering based on the expanded state */}
             {expanded[index] && (
               <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                 {category.items.map((item) => (
                   <div key={item.name} className="group relative">
-                    {/* Placeholder for item image or any other content */}
-                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                      {/* Insert your image or placeholder here */}
+                    <div className="w-full h-60 bg-gray-200 flex items-center justify-center overflow-hidden rounded-md">
+                      {/* Adding image */}
+                      <img src={item.image} alt={item.name} className="object-cover" />
                     </div>
                     <div className="mt-4 flex justify-between">
                       <div>
