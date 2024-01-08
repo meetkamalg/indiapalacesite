@@ -21,10 +21,15 @@ type MenuProps = {
 export default function Menu({ menuData }: MenuProps) {
   // State to track expanded categories. Initialize with all false.
   const [expanded, setExpanded] = useState<boolean[]>(menuData.map(() => false));
+  const [cart, setCart] = useState<MenuItem[]>([]); // State to hold cart items
 
   const toggleCategory = (index: number) => {
     // Toggles the truth value for the specified category
     setExpanded(expanded.map((exp, i) => (i === index ? !exp : exp)));
+  };
+  // Function to add an item to the cart
+  const addToCart = (item: MenuItem) => {
+    setCart(currentCart => [...currentCart, item]); // Adds new item to the cart
   };
 
   return (
@@ -51,6 +56,12 @@ export default function Menu({ menuData }: MenuProps) {
                         <p className="mt-1 text-sm text-gray-500">{item.description}</p>
                       </div>
                       <p className="text-sm font-medium text-gray-900">{`$${item.price.toFixed(2)}`}</p>
+                      <button 
+                      className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                      onClick={() => addToCart(item)} // Calls addToCart with the item
+                    >
+                      Add to Cart
+                    </button>
                     </div>
                   </div>
                 ))}

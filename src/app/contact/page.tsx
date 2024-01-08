@@ -1,13 +1,15 @@
+import React from 'react';
+import ContactForm from '../components/ContactForm'; // adjust the path as necessary
+
 export const metadata = {
     title: 'Contact',
-    description: 'Indian Cusine',
-  }
-  
+    description: 'Reach out to us!',
+};
 
-  export default function Contact(){
+export default function ContactPage() {
     return (
-      <div className="mt-[200px]">
-        <p className="font-bold text-center uppercase text-3xl">Contact</p>
-      </div>
-    )
-  }
+        <div>
+            <ContactForm />
+        </div>
+    );
+}
