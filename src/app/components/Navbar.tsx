@@ -1,8 +1,15 @@
-
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import { FaHome, FaPhone, FaConciergeBell, FaCalendarAlt, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { CartContext } from '../cart/CartContext'; 
 
 const Navbar = () => {
+  const [showCart, setShowCart] = useState(false); // State to manage cart dropdown visibility
+  const cartContext = useContext(CartContext); 
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
   return (
     <nav className="bg-gray-400 text-white py-4 w-full">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-10">
@@ -41,11 +48,39 @@ const Navbar = () => {
           </div>
 
           {/* Cart Icon */}
-          <div className="cursor-pointer">
+          <div className="cursor-pointer" onClick={toggleCart}>
             <Link href="/cart" className="hover:text-gray-300">
                 <FaShoppingCart size="1.5em" />
             </Link>
           </div>
+          {/* Collapsible Cart Preview */}
+          {showCart && (
+            <div tabIndex={0} className="collapse bg-base-200 absolute right-0 mt-2 py-2 w-64 rounded-lg shadow-xl">
+              <div className="collapse-title text-xl font-medium">
+                Your Cart Items
+              </div>
+              <div className="collapse-content">
+                {/* List of cart items */}
+                {cartContext.items.length ? (
+                  cartContext.items.map((item, index) => (
+                    <div key={index} className="flex justify-between items-center">
+                      <span>{cartContext.items}</span>
+                      <span>{`$${cartContext.total.toFixed(2)}`}</span>
+                    </div>
+                  ))
+                ) : (
+                  <p>Your cart is empty</p>
+                )}
+                <div className="flex justify-center mt-4">
+                  <Link href="/checkout">
+                    <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      Checkout
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>

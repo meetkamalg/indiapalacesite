@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import menuData from './menuData'; // make sure the path is correct to your menuData file
+import { CartProvider } from '../cart/CartContext'; // adjust the import path as necessary
 
 type MenuItem = {
   name: string;
